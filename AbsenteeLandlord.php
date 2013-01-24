@@ -29,7 +29,7 @@ function efAbsenteeLandlord_Setup() {
 	global $wgAbsenteeLandlordMaxDays;
 
 	$timeout = $wgAbsenteeLandlordMaxDays * 24 * 60 * 60; // # days * 24 hours * 60 minutes * 60 seconds
-	$lasttouched = filemtime( dirname( __FILE__ ) . '/lasttouched.txt' );
+	$lasttouched = filemtime( MW_INSTALL_PATH . '/lasttouched.txt' );
 	$check = time() - $lasttouched;
 
 	if ( $check >= $timeout ) {
@@ -52,7 +52,7 @@ function efAbsenteeLandlord_MaybeDoTouch( &$out, $sk = null ) {
 	global $wgUser;
 	$groups = $wgUser->getGroups();
 	if ( in_array( 'sysop', $groups ) ) {
-		touch( dirname( __FILE__ ) . '/lasttouched.txt' );
+		touch( MW_INSTALL_PATH . '/lasttouched.txt' );
 	}
 	return true;
 }
