@@ -11,25 +11,25 @@
  * This shim maintains compatibility back to MediaWiki 1.17.
  */
 $messages = array();
-if ( !function_exists( 'wfJsonI18nShim81e52cd955766eb0' ) ) {
-	function wfJsonI18nShim81e52cd955766eb0( $cache, $code, &$cachedData ) {
-		$codeSequence = array_merge( array( $code ), $cachedData['fallbackSequence'] );
-		foreach ( $codeSequence as $csCode ) {
-			$fileName = dirname( __FILE__ ) . "/i18n/$csCode.json";
-			if ( is_readable( $fileName ) ) {
-				$data = FormatJson::decode( file_get_contents( $fileName ), true );
-				foreach ( array_keys( $data ) as $key ) {
-					if ( $key === '' || $key[0] === '@' ) {
-						unset( $data[$key] );
-					}
-				}
-				$cachedData['messages'] = array_merge( $data, $cachedData['messages'] );
-			}
+if ( !function_exists( 'wfJsonI18nShim0ef9233c5758d5b1' ) ) {
+        function wfJsonI18nShim0ef9233c5758d5b1( $cache, $code, &$cachedData ) {
+                $codeSequence = array_merge( array( $code ), $cachedData['fallbackSequence'] );
+                foreach ( $codeSequence as $csCode ) {
+                        $fileName = dirname( __FILE__ ) . "/i18n/$csCode.json";
+                        if ( is_readable( $fileName ) ) {
+                                $data = FormatJson::decode( file_get_contents( $fileName ), true );
+                                foreach ( array_keys( $data ) as $key ) {
+                                        if ( $key === '' || $key[0] === '@' ) {
+                                                unset( $data[$key] );
+                                        }
+                                }
+                                $cachedData['messages'] = array_merge( $data, $cachedData['messages'] );
+                        }
 
-			$cachedData['deps'][] = new FileDependency( $fileName );
-		}
-		return true;
-	}
+                        $cachedData['deps'][] = new FileDependency( $fileName );
+                }
+                return true;
+        }
 
-	$GLOBALS['wgHooks']['LocalisationCacheRecache'][] = 'wfJsonI18nShim81e52cd955766eb0';
+        $GLOBALS['wgHooks']['LocalisationCacheRecache'][] = 'wfJsonI18nShim0ef9233c5758d5b1';
 }
